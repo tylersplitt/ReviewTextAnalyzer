@@ -103,4 +103,5 @@ function resetConcordance() {
     for (wordSpan of wordSpans) {
         wordSpan.remove();
     }
+    wordSpans.splice(0, wordSpans.length);
 }

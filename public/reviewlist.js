@@ -76,14 +76,20 @@ function resetReviewLists() {
     for (div of reviewDivsByDate) {
         div.remove();
     }
+    reviewDivsByDate.splice(0, reviewDivsByDate.length);
+
     for (div of reviewDivsBottomUp) {
         div.remove();
     }
+    reviewDivsBottomUp.splice(0, reviewDivsBottomUp.length);
+
     for (div of reviewDivsTopDown) {
         div.remove();
     }
+    reviewDivsTopDown.splice(0, reviewDivsTopDown.length);
 
     currentReviewList = undefined;
+
 }
 
 async function makeReviewDivs(missing, divArray) {
