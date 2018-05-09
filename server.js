@@ -6,7 +6,7 @@ let rita = require('rita');
 
 // Set up server to display public
 let app = express();
-let server = app.listen(3000);
+let server = app.listen(process.env.PORT || 3000);
 
 app.use(express.static('public'));
 

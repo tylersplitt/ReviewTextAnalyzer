@@ -17,7 +17,8 @@ let shownWords = 0;
 function setup() {
   noCanvas();
 
-  socket = io.connect('http://localhost:3000');
+  socket = io.connect('https://review-text-analyzer.herokuapp.com');
+  // socket = io.connect('http://localhost:3000');
 
   socket.on('reviewResponse', serverResponded);
   socket.on('reviewError', serverRespondedError);
