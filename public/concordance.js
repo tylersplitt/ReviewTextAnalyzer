@@ -13,6 +13,8 @@ function setConcordanceGlobals() {
 
     clear = select('#clearConcordance');
     clear.mousePressed(clearSelection);
+
+    concordanceDiv = select('#concordance');
 }
 
 function searchConcordance() {
@@ -70,7 +72,6 @@ function setColor(span, color) {
 async function makeConcordance() {
     console.log('conc');
     maxWords = min(reviewSet.wordsInOrder.length, maxWords);
-    concordanceDiv = select('#concordance');
     select('#concordanceWrapper').style('display', 'block');
     select('#concordanceSearch').style('display', 'flex');
     let minCount = reviewSet.concordance[reviewSet.wordsInOrder[maxWords - 1]];

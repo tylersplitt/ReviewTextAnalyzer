@@ -51,6 +51,7 @@ function draw() {
     if (currentReviewList && shownReviews[sortType] < currentReviewList.length) {
       let div = currentReviewList[shownReviews[sortType]];
       if (reviewContainsWord(div, selectedWord)) {
+        div.parent(select('#allReviews'));
         div.style('display', 'block');
       }
       shownReviews[sortType]++;
@@ -58,6 +59,7 @@ function draw() {
     for (let i = 0; i < 10; i++) {
       if (wordSpans && shownWords < wordSpans.length && shownWords < maxWords) {
         let ws = wordSpans[shownWords];
+        ws.parent(concordanceDiv);
         ws.style('display', 'inline');
         shownWords++;
       }
