@@ -1,5 +1,3 @@
-// MyQ Chamberlain - 636030203 com.chamberlain.myq.chamberlain
-
 let output;
 
 let socket;
@@ -14,38 +12,44 @@ let currentReviewList;
 let shownReviews = [0, 0, 0];
 let shownWords = 0;
 
+// Entry point for the client 
 function setup() {
+  // p5.js default creates a canvas
   noCanvas();
 
+  // Connect to either the deployed server or the local server
   socket = io.connect('https://review-text-analyzer.herokuapp.com');
-  // socket = io.connect('http://localhost:3000');
 
+  // Handle server responses
   socket.on('reviewResponse', serverResponded);
   socket.on('reviewError', serverRespondedError);
 
+  // Status for the user
   output = select('#output');
-
-  //     userStopWords.push(word);
-  //     updateReviewAnalysis();
-
 }
 
+// Handle the response
 function serverResponded(data) {
   console.log(data);
   if (data && data.reviews && data.reviews.reviews.length > 0) {
     reviewSet = data.reviews;
+
+    // Hands it off to analysis.js
     startAnalysis();
+
     output.html('');
   } else {
     output.html('No reviews found');
   }
 }
 
+// Handle error from the server
 function serverRespondedError(error) {
   console.log(error);
   output.html('Server encountered an error retrieving reviews. Check console for error.');
 }
 
+// Called every tick. Populates the concordance and reviews if they have not loaded
 function draw() {
   if (analyzed) {
     if (currentReviewList && shownReviews[sortType] < currentReviewList.length) {

@@ -1,5 +1,7 @@
+// Analysis flag
 let analyzed = false;
 
+// Make and show all analysis components
 function startAnalysis() {
     analyzed = true;
     showAnalysis();
@@ -15,6 +17,7 @@ function startAnalysis() {
     reset.mousePressed(resetAnalysis);
 }
 
+// Populate div containing review stats
 function setAnalysisStats() {
     select('#selectedWord').html('Stats');
 
@@ -32,6 +35,7 @@ function setAnalysisStats() {
     select('#wordReviewTitle').style('display', 'none');
 }
 
+// Populate div for word stats
 function setWordStats() {
     select('#selectedWord').html(selectedWord);
 
@@ -50,6 +54,7 @@ function setWordStats() {
     select('#selectedWordReview').html(selectedWord);
 }
 
+// Call the server when the App ID form is submitted
 function appIdEntered() {
     let appId = select('#appIdInput').value();
     let appIdType = select('#appIdType').value();
@@ -76,6 +81,7 @@ function appIdEntered() {
     return false;
 }
 
+// Reanalyze the same app
 function updateReviewAnalysis() {
     let data = {
         userStopWords: userStopWords,
@@ -83,6 +89,7 @@ function updateReviewAnalysis() {
     socket.emit('analyzeReviews', data)
 }
 
+// Clear all variables and reset analysis
 function resetAnalysis() {
     analyzed = false;
     selectedWord = '';
@@ -96,12 +103,14 @@ function resetAnalysis() {
     resetReviewLists();
 }
 
+// Hide analysis divs
 function hideAnalysis() {
     select('#topbar').style('display', 'none');
     select('#appIdDiv').style('display', 'block');
     select('#analysisDiv').style('display', 'none');
 }
 
+// Show analysis divs
 function showAnalysis() {
     select('#appIdDiv').style('display', 'none');
     select('#topbar').style('display', 'flex');

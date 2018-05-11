@@ -1,4 +1,5 @@
 let maxWords = 500;
+
 let concordanceDiv;
 
 let wordSpans = [];
@@ -7,6 +8,7 @@ let wordSearch;
 
 let clear;
 
+// Called by analysis.js to set all globals
 function setConcordanceGlobals() {
     wordSearch = select('#concordanceInput');
     wordSearch.input(searchConcordance);
@@ -17,6 +19,7 @@ function setConcordanceGlobals() {
     concordanceDiv = select('#concordance');
 }
 
+// As user inputs text, filter the concordance
 function searchConcordance() {
     let searchWord = wordSearch.value().toLowerCase();
     for (let i = 0; i < wordSpans.length; i++) {
@@ -28,6 +31,7 @@ function searchConcordance() {
     }
 }
 
+// Clear the concordance selection
 function clearSelection() {
     selectedWord = '';
     for (ws of wordSpans) {
@@ -44,6 +48,7 @@ function highlight() {
     setColor(this, '#B8B8D1');
 }
 
+// Happens when a user clicks a word
 function selectWord() {
     setColor(this, '#D7263D');
     selectedWord = this.elt.innerHTML.trim();
@@ -69,8 +74,8 @@ function setColor(span, color) {
     }
 }
 
+// Creating concordance word spans
 async function makeConcordance() {
-    console.log('conc');
     maxWords = min(reviewSet.wordsInOrder.length, maxWords);
     select('#concordanceWrapper').style('display', 'block');
     select('#concordanceSearch').style('display', 'flex');
@@ -81,9 +86,9 @@ async function makeConcordance() {
         let show = i < maxWords;
         await makeConcordanceWord(word, minCount, maxCount, show);
     }
-    console.log('conc done');
 }
 
+// Creating each span and added events
 function makeConcordanceWord(word, minCount, maxCount, show) {
     let count = reviewSet.concordance[word];
     let size = map(count, minCount, maxCount, 12, 96);
@@ -99,6 +104,7 @@ function makeConcordanceWord(word, minCount, maxCount, show) {
     wordSpans.push(wordSpan);
 }
 
+// Resetting all concordance variables and DOM elements
 function resetConcordance() {
     for (wordSpan of wordSpans) {
         wordSpan.remove();

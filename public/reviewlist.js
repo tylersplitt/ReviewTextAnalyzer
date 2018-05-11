@@ -9,6 +9,7 @@ const SORTLOW = 2;
 let sortMenu;
 let sortType = SORTDATE;
 
+// Called by analysis.js to set all reviewlist global variables
 function setReviewListGlobals() {
     sortMenu = select('#sortMenu');
     sortType = parseInt(sortMenu.value());
@@ -16,6 +17,7 @@ function setReviewListGlobals() {
     sortMenu.changed(updateReviewList);
 }
 
+// Create three review lists for each filterable part
 function makeAllReviewLists() {
     let topDownReviews = reviewSet.reviews.slice(0, reviewSet.reviews.length);
     topDownReviews.sort(goodReviewSorter);
@@ -32,6 +34,7 @@ function makeAllReviewLists() {
     currentReviewList = reviewDivsByDate;
 }
 
+// Filter out review list for the selected word
 function filterReviewList() {
     for (div of currentReviewList) {
         if (reviewContainsWord(div, selectedWord)) {
@@ -42,6 +45,7 @@ function filterReviewList() {
     }
 }
 
+// Check to determine whether or not the review contains the word
 function reviewContainsWord(div, word) {
     let text = div.elt.innerText.toLowerCase();
     let r = '\\b' + word + '\\b';
@@ -49,6 +53,7 @@ function reviewContainsWord(div, word) {
     return reg.test(text);
 }
 
+// Switch the review list filter
 function updateReviewList() {
     shownReviews[sortType] = 0;
     sortType = parseInt(sortMenu.value());
@@ -72,6 +77,7 @@ function showAllCurrentReviews() {
     currentReviewList.forEach(div => div.style('display', 'block'));
 }
 
+// Reset for the review lists
 function resetReviewLists() {
     for (div of reviewDivsByDate) {
         div.remove();
@@ -101,6 +107,7 @@ async function makeReviewDivs(missing, divArray) {
     console.log('rev done');
 }
 
+// Make each div
 function makeReviewDiv(rev) {
     let stars = '*'.repeat(rev.rating);
     let div = createDiv('');
